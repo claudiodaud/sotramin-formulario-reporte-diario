@@ -519,9 +519,9 @@ Hora de envio: ${formData.timestamp}
 
             // Agregar estado de guardado
             if (savedSuccessfully) {
-                message += `\n\n>> Datos guardados correctamente en el sistema`;
+                message += `\n\n## Datos guardados correctamente en el sistema`;
             } else {
-                message += `\n\n>> ADVERTENCIA: No se pudo confirmar el guardado - Verificar manualmente`;
+                message += `\n\n## ADVERTENCIA: No se pudo confirmar el guardado - Verificar manualmente`;
             }
             
             const encodedMessage = encodeURIComponent(message);

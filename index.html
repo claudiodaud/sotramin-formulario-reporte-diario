@@ -51,8 +51,8 @@
         }
         
         .logo {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
             filter: brightness(1.1);
         }
@@ -130,6 +130,11 @@
             min-height: 100px;
         }
         
+        textarea#comentarios {
+            min-height: 280px;
+            line-height: 1.5;
+        }
+        
         select {
             cursor: pointer;
             appearance: none;
@@ -166,71 +171,61 @@
             margin-top: 0;
         }
         
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
+        /* Contenedor de mensajes de feedback */
+        .feedback-container {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+        
+        .feedback-message {
+            display: none;
+            padding: 15px 20px;
             border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 10px;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .feedback-message.success {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+        
+        .feedback-message.error {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+        }
+        
+        .feedback-message.loading {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 25px;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-        }
-        
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5);
-        }
-        
-        .submit-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-        
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            border: 2px solid #2a5298;
-        }
-        
-        .loading p {
-            color: #1e3c72;
-            font-weight: 600;
-            margin-top: 15px;
-            font-size: 16px;
+            gap: 12px;
         }
         
         .spinner {
-            border: 4px solid #e3e8ef;
-            border-top: 4px solid #2a5298;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
         }
         
         @keyframes spin {
@@ -238,9 +233,74 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Contenedor de botones */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .action-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+        
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        }
+        
+        .save-btn:hover:not(:disabled) {
+            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.5);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+        
+        .whatsapp-btn:hover:not(:disabled) {
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+        }
+        
+        /* Responsive */
         @media (max-width: 600px) {
             .grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .header-text h1 {
+                font-size: 22px;
+            }
+            
+            .form-content {
+                padding: 20px;
             }
         }
     </style>
@@ -249,47 +309,48 @@
     <div class="container">
         <div class="header">
             <div class="logo-container">
-                <div class="header-text">
-                    <h1>SOTRAMIN</h1>
-                    <div class="subtitle">REPORTE DIARIO - CONTRATO PLANTA CAL</div>
-                </div>
+                <img src="cropped-logo-5.png" alt="Logo SOTRAMIN" class="logo">
+            </div>
+            <div class="header-text">
+                <h1>SOTRAMIN</h1>
+                <p class="subtitle">CONTROL DE OPERACIONES - PLANTA CAL</p>
             </div>
         </div>
         
         <div class="form-content">
             <div class="info-text">
-                Complete el formulario diario de operaciones
+                Complete el reporte diario de operaciones. Los datos se guardarán en la base de datos y podrá enviarlos por WhatsApp.
             </div>
             
             <form id="productionForm">
-                <div class="form-group full-width">
-                    <label for="fecha">Fecha *</label>
-                    <input type="date" id="fecha" name="fecha" required>
-                </div>
-                
                 <div class="grid">
+                    <div class="section-title">INFORMACIÓN GENERAL</div>
+                    
                     <div class="form-group">
-                        <label for="operador">Operador *</label>
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="operador">Nombre del Operador</label>
                         <select id="operador" name="operador" required>
-                            <option value="">Seleccionar...</option>
+                            <option value="">Seleccione...</option>
                             <option value="Alex Rodríguez">Alex Rodríguez</option>
-                            <option value="Freddy Retamal">Freddy Retamal</option>
                             <option value="Bryan Gajardo">Bryan Gajardo</option>
+                            <option value="Freddy Retamal">Freddy Retamal</option>
                             <option value="Williams Cortes">Williams Cortes</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="turno">Turno *</label>
+                        <label for="turno">Turno</label>
                         <select id="turno" name="turno" required>
-                            <option value="">Seleccionar...</option>
-                            <option value="Día">Día</option>
-                            <option value="Noche">Noche</option>
+                            <option value="">Seleccione...</option>
+                            <option value="Diurno">Diurno</option>
+                            <option value="Nocturno">Nocturno</option>
                         </select>
                     </div>
-                </div>
-                
-                <div class="grid">
+                    
                     <div class="section-title">ENVASADOS</div>
                     
                     <div class="form-group">
@@ -307,15 +368,15 @@
                     <div class="form-group">
                         <label for="horno1">Horno 1</label>
                         <select id="horno1" name="horno1" required>
-                            <option value="0">🔴 Detenido</option>
-                            <option value="1" selected>🟢 Encendido</option>
+                            <option value="0" selected>🔴 Apagado</option>
+                            <option value="1">🟢 Encendido</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="horno2">Horno 2</label>
                         <select id="horno2" name="horno2" required>
-                            <option value="0">🔴 Detenido</option>
+                            <option value="0">🔴 Apagado</option>
                             <option value="1" selected>🟢 Encendido</option>
                         </select>
                     </div>
@@ -381,28 +442,68 @@
                         <input type="number" id="ingresoCaliza" name="ingresoCaliza" min="0" placeholder="0">
                     </div>
                     
-                    <div class="section-title">COMENTARIOS</div>
+                    <div class="section-title">EQUIPOS Y MATERIALES</div>
+                    
+                    <div class="form-group">
+                        <label for="ktest">K-Test (opcional)</label>
+                        <input type="number" id="ktest" name="ktest" min="0" placeholder="Dejar vacío si no aplica">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="radios">Radios Entregadas</label>
+                        <input type="number" id="radios" name="radios" min="0" placeholder="0" value="0">
+                    </div>
+                    
+                    <div class="section-title">COMENTARIOS Y OBSERVACIONES</div>
                     
                     <div class="form-group full-width">
-                        <label for="comentarios">Novedades o Información Importante</label>
-                        <textarea id="comentarios" name="comentarios" rows="4" placeholder="Ejemplo: Fallas en equipos, mantenciones realizadas, incidentes de seguridad, paradas no programadas, cambios operacionales, condiciones especiales del turno, observaciones relevantes..."></textarea>
+                        <label for="comentarios">Novedades, Verificaciones y Control</label>
+                        <textarea id="comentarios" name="comentarios" rows="8" placeholder="VERIFICACIONES Y CONTROL:
+• Limpieza de Equipos: (Conforme / No Conforme / No Aplica)
+• Verificación de Reports: (Realizada / Pendiente / No Aplica)
+• Equipos que se Petrolearon: (Ninguno / Cargador Frontal / Camión / Múltiples Equipos)
+• Incidentes de Seguridad: (Ninguno / Incidente Menor / Casi Accidente / Condición Insegura / Accidente)
+
+NOVEDADES DE OPERACIÓN:
+• Estado general de la planta
+• Cambios en procesos operacionales
+• Condiciones especiales del turno
+
+EQUIPOS:
+• Fallas o desperfectos
+• Mantenciones realizadas o pendientes
+• Observaciones sobre rendimiento
+
+SEGURIDAD:
+• Condiciones de riesgo detectadas
+• Acciones correctivas implementadas
+• Uso de EPP
+
+Agregue cualquier otra información relevante..."></textarea>
                     </div>
                 </div>
                 
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p>Enviando datos...</p>
+                <!-- Contenedor de mensajes de feedback -->
+                <div class="feedback-container">
+                    <div class="feedback-message" id="feedbackMessage"></div>
                 </div>
                 
-                <div class="success-message" id="successMessage">
-                    Datos enviados correctamente
+                <!-- Botones de acción -->
+                <div class="button-container">
+                    <button type="button" class="action-btn save-btn" id="saveBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                        </svg>
+                        Guardar en Base de Datos
+                    </button>
+                    
+                    <button type="button" class="action-btn whatsapp-btn" id="whatsappBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Enviar por WhatsApp
+                    </button>
                 </div>
-                
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    Enviar por WhatsApp
-                </button>
-                
-                
             </form>
         </div>
     </div>
@@ -411,12 +512,37 @@
         // CAMBIA ESTA URL POR LA TUYA
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4SkvxAoQ8UGqoBqGxHtaIMJfTuCudZy1J0d2LXpgfwam7Ytwn7d6-5KvoH3DtnJ7L/exec';
         
+        // Establecer fecha actual
         document.getElementById('fecha').valueAsDate = new Date();
         
-        document.getElementById('productionForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Variable para rastrear si ya se guardó
+        let dataSaved = false;
+        
+        // Función para mostrar mensajes de feedback
+        function showFeedback(message, type) {
+            const feedbackDiv = document.getElementById('feedbackMessage');
+            feedbackDiv.textContent = message;
+            feedbackDiv.className = 'feedback-message ' + type;
+            feedbackDiv.style.display = 'block';
             
-            // Capturar fecha y hora actual
+            // Si es un mensaje de éxito o error, ocultarlo después de 5 segundos
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    feedbackDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Función para mostrar spinner de carga
+        function showLoading(message) {
+            const feedbackDiv = document.getElementById('feedbackMessage');
+            feedbackDiv.innerHTML = `<div class="spinner"></div><span>${message}</span>`;
+            feedbackDiv.className = 'feedback-message loading';
+            feedbackDiv.style.display = 'flex';
+        }
+        
+        // Función para recopilar datos del formulario
+        function getFormData() {
             const ahora = new Date();
             const timestamp = ahora.toLocaleString('es-CL', {
                 year: 'numeric',
@@ -428,7 +554,10 @@
                 hour12: false
             });
             
-            const formData = {
+            // Obtener valor de ktest (puede ser null)
+            const ktestValue = document.getElementById('ktest').value.trim();
+            
+            return {
                 fecha: document.getElementById('fecha').value,
                 operador: document.getElementById('operador').value,
                 turno: document.getElementById('turno').value,
@@ -437,8 +566,8 @@
                 paletsEnvasado: parseInt(document.getElementById('paletsEnvasado').value) || 0,
                 horno1: parseInt(document.getElementById('horno1').value),
                 horno2: parseInt(document.getElementById('horno2').value),
-                horno1Text: document.getElementById('horno1').value === '1' ? 'Encendido' : 'Detenido',
-                horno2Text: document.getElementById('horno2').value === '1' ? 'Encendido' : 'Detenido',
+                horno1Text: document.getElementById('horno1').value === '1' ? 'Encendido' : 'Apagado',
+                horno2Text: document.getElementById('horno2').value === '1' ? 'Encendido' : 'Apagado',
                 maxisDespachados: parseInt(document.getElementById('maxisDespachados').value) || 0,
                 paletsDespachados: parseInt(document.getElementById('paletsDespachados').value) || 0,
                 cementosCargados: parseInt(document.getElementById('cementosCargados').value) || 0,
@@ -450,15 +579,42 @@
                 cokesRemontados: parseInt(document.getElementById('cokesRemontados').value) || 0,
                 viajesAgua: parseInt(document.getElementById('viajesAgua').value) || 0,
                 ingresoCaliza: parseInt(document.getElementById('ingresoCaliza').value) || 0,
+                ktest: ktestValue !== '' ? parseInt(ktestValue) : null,
+                radios: parseInt(document.getElementById('radios').value) || 0,
                 comentarios: document.getElementById('comentarios').value.trim()
             };
+        }
+        
+        // Validar campos requeridos
+        function validateForm() {
+            const fecha = document.getElementById('fecha').value;
+            const operador = document.getElementById('operador').value;
+            const turno = document.getElementById('turno').value;
+            const horno1 = document.getElementById('horno1').value;
+            const horno2 = document.getElementById('horno2').value;
             
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('submitBtn').disabled = true;
+            if (!fecha || !operador || !turno || !horno1 || !horno2) {
+                showFeedback('Por favor complete todos los campos obligatorios', 'error');
+                return false;
+            }
+            return true;
+        }
+        
+        // Botón Guardar en Base de Datos
+        document.getElementById('saveBtn').addEventListener('click', async function() {
+            if (!validateForm()) return;
             
-            let savedSuccessfully = false;
+            const saveBtn = document.getElementById('saveBtn');
+            const whatsappBtn = document.getElementById('whatsappBtn');
             
-            // Enviar a Google Sheets
+            // Deshabilitar botones mientras se procesa
+            saveBtn.disabled = true;
+            whatsappBtn.disabled = true;
+            
+            showLoading('Guardando en base de datos...');
+            
+            const formData = getFormData();
+            
             try {
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
@@ -466,17 +622,39 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(formData)
                 });
-                // Si no hay error, asumimos que se envió correctamente
-                savedSuccessfully = true;
+                
+                // Esperar un momento para asegurar el guardado
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                dataSaved = true;
+                showFeedback('Datos guardados correctamente en la base de datos', 'success');
+                
+                // Habilitar botones
+                saveBtn.disabled = false;
+                whatsappBtn.disabled = false;
+                
             } catch (error) {
                 console.error('Error:', error);
-                savedSuccessfully = false;
+                showFeedback('Error al guardar los datos. Por favor intente nuevamente', 'error');
+                
+                // Habilitar botones
+                saveBtn.disabled = false;
+                whatsappBtn.disabled = false;
+            }
+        });
+        
+        // Botón Enviar por WhatsApp
+        document.getElementById('whatsappBtn').addEventListener('click', function() {
+            if (!validateForm()) return;
+            
+            if (!dataSaved) {
+                const confirmSend = confirm('No ha guardado los datos en la base de datos.\n\n¿Desea enviar por WhatsApp sin guardar?');
+                if (!confirmSend) return;
             }
             
-            // Esperar 1 segundo para que se procese
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const formData = getFormData();
             
-            document.getElementById('loading').style.display = 'none';
+            showLoading('Preparando mensaje de WhatsApp...');
             
             // Preparar mensaje WhatsApp
             const dateObj = new Date(formData.fecha + 'T00:00:00');
@@ -488,7 +666,7 @@
 Fecha: ${formattedDate}
 Operador: ${formData.operador}
 Turno: ${formData.turno}
-Hora de envio: ${formData.timestamp}
+Hora de envío: ${formData.timestamp}
 
 *ENVASADOS*
 - Maxis Envasado: ${formData.maxisEnvasado}
@@ -515,28 +693,37 @@ Hora de envio: ${formData.timestamp}
 - Viajes de Agua: ${formData.viajesAgua}
 - Ingreso Caliza T-208: ${formData.ingresoCaliza}`;
 
+            // Agregar información de equipos y materiales si hay datos
+            if (formData.ktest !== null || formData.radios > 0) {
+                message += `\n\n*EQUIPOS Y MATERIALES*`;
+                if (formData.ktest !== null) {
+                    message += `\n- K-Test: ${formData.ktest}`;
+                }
+                if (formData.radios > 0) {
+                    message += `\n- Radios Entregadas: ${formData.radios}`;
+                }
+            }
+
+            // Agregar comentarios si existen
             if (formData.comentarios) {
-                message += `\n\n*COMENTARIOS*\n${formData.comentarios}`;
+                message += `\n\n*COMENTARIOS Y OBSERVACIONES*\n${formData.comentarios}`;
             }
 
             // Agregar estado de guardado
-            if (savedSuccessfully) {
-                message += `\n\n## Datos guardados correctamente en el sistema`;
+            if (dataSaved) {
+                message += `\n\n--- Datos guardados en el sistema ---`;
             } else {
-                message += `\n\n## ADVERTENCIA: No se pudo confirmar el guardado - Verificar manualmente`;
+                message += `\n\n--- ADVERTENCIA: Datos NO guardados en el sistema ---`;
             }
             
             const encodedMessage = encodeURIComponent(message);
-            // Usar whatsapp:// para forzar la app normal en lugar de Business
             const whatsappURL = `whatsapp://send?text=${encodedMessage}`;
             
-            window.open(whatsappURL, '_blank');
-            
-            document.getElementById('successMessage').style.display = 'block';
-            
+            // Pequeño delay para que se vea el mensaje de preparación
             setTimeout(() => {
-                window.close();
-            }, 2000);
+                window.open(whatsappURL, '_blank');
+                showFeedback('Mensaje de WhatsApp preparado. Se abrirá la aplicación...', 'success');
+            }, 800);
         });
     </script>
 </body>

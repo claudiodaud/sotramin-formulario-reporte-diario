@@ -446,12 +446,12 @@
                     
                     <div class="form-group">
                         <label for="ktest">K-Test (opcional)</label>
-                        <input type="number" id="ktest" name="ktest" min="0" placeholder="Dejar vacío si no aplica">
+                        <input type="number" id="ktest" name="ktest" min="0" placeholder="0">
                     </div>
                     
                     <div class="form-group">
                         <label for="radios">Radios Entregadas</label>
-                        <input type="number" id="radios" name="radios" min="0" placeholder="0" value="0">
+                        <input type="number" id="radios" name="radios" min="0" placeholder="0">
                     </div>
                     
                     <div class="section-title">COMENTARIOS Y OBSERVACIONES</div>
@@ -554,8 +554,9 @@ Agregue cualquier otra información relevante..."></textarea>
                 hour12: false
             });
             
-            // Obtener valor de ktest (puede ser null)
+            // Obtener valores de ktest y radios (0 por defecto si están vacíos)
             const ktestValue = document.getElementById('ktest').value.trim();
+            const radiosValue = document.getElementById('radios').value.trim();
             
             return {
                 fecha: document.getElementById('fecha').value,
@@ -579,8 +580,8 @@ Agregue cualquier otra información relevante..."></textarea>
                 cokesRemontados: parseInt(document.getElementById('cokesRemontados').value) || 0,
                 viajesAgua: parseInt(document.getElementById('viajesAgua').value) || 0,
                 ingresoCaliza: parseInt(document.getElementById('ingresoCaliza').value) || 0,
-                ktest: ktestValue !== '' ? parseInt(ktestValue) : null,
-                radios: parseInt(document.getElementById('radios').value) || 0,
+                ktest: ktestValue !== '' ? parseInt(ktestValue) : 0,
+                radios: radiosValue !== '' ? parseInt(radiosValue) : 0,
                 comentarios: document.getElementById('comentarios').value.trim()
             };
         }
